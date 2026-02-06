@@ -21,21 +21,4 @@ abstract class TrackerDatabase: RoomDatabase() {
     abstract fun priceDao(): PriceDao
     abstract fun currencyDao(): CurrencyDao
     abstract fun commissionDao(): CommissionDao
-
-    companion object {
-        @Volatile
-        private var INSTANCE: TrackerDatabase? = null
-
-        fun getDatabase(context: Context): TrackerDatabase {
-            return INSTANCE ?: synchronized(this) {
-                val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    TrackerDatabase::class.java,
-                    "crypto_tracker_database"
-                ).build()
-                INSTANCE = instance
-                instance
-            }
-        }
-    }
 }
